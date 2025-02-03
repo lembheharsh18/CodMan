@@ -26,7 +26,7 @@ model User {
   avatarUrl             String?
   bio                   String?
   sessions              Session[]
-  // posts                 Post[]
+  posts                 Post[]
   // following             Follow[]       @relation("Following")
   // followers             Follow[]       @relation("Followers")
   // likes                 Like[]
@@ -47,4 +47,20 @@ model Session {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
+}
+
+model Post {
+  id                  String         @id @default(cuid())
+  content             String
+  userId              String
+  user                User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // attachments         Media[]
+  // likes               Like[]
+  // bookmarks           Bookmark[]
+  // comments            Comment[]
+  // linkedNotifications Notification[]
+
+  createdAt DateTime @default(now())
+
+  @@map("posts")
 }
