@@ -2,7 +2,7 @@
 
 import { validateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
-// import { getPostDataInclude } from "@/lib/types";
+import { getPostDataInclude } from "@/lib/types";
 import { createPostSchema } from "@/lib/validation";
 
 export async function submitPost(input:string) {
@@ -12,21 +12,15 @@ export async function submitPost(input:string) {
 
   const { content } = createPostSchema.parse({ content: input });
 
-  await prisma.post.create({
+  const newPost = await prisma.post.create({
     data: {
-        content,
-        userId: user.id,
+      content,
+      userId: user.id,
+      // attachments: {
+      //   connect: mediaIds.map((id) => ({ id })),
+      // },
     },
+    include: getPostDataInclude(user.id),
   });
-//   const newPost = await prisma.post.create({
-//     data: {
-//       content,
-//       userId: user.id,
-//       attachments: {
-//         connect: mediaIds.map((id) => ({ id })),
-//       },
-//     },
-//     include: getPostDataInclude(user.id),
-//   });
-  
+  return newPost;
 }

@@ -29,6 +29,8 @@ export default function UserButton({className}: UserButtonProps){
     const {user} = useSession();
     
     const {theme, setTheme} = useTheme();
+
+    const queryClient = useQueryClient();
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -75,6 +77,7 @@ export default function UserButton({className}: UserButtonProps){
                 <DropdownMenuSeparator/>
                 <DropdownMenuItem
                 onClick={()=>{
+                    queryClient.clear();
                     logout();
                 }}>
                     <LogOutIcon className="mr-2 size-4"/>
