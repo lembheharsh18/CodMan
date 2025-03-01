@@ -1,11 +1,13 @@
-import {Prisma} from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
-export function getUserDataSelect(loggedInUserId: string){
+export function getUserDataSelect(loggedInUserId: string) {
   return {
     id: true,
     username: true,
     displayName: true,
-    avatarUrl: true,
+    avatarUrl: true, // ✅ Ensure avatar is included
+    createdAt: true, // ✅ Ensure createdAt is included
+    bio: true, // ✅ Ensure bio is included
     followers: {
       where: {
         followerId: loggedInUserId,
@@ -16,18 +18,19 @@ export function getUserDataSelect(loggedInUserId: string){
     },
     _count: {
       select: {
-        followers: true,
+        followers: true, // ✅ Ensure followers count is included
+        posts: true, // ✅ Ensure posts count is included
       },
     },
-  } satisfies Prisma.UserSelect
+  } satisfies Prisma.UserSelect;
 }
 
-export function getPostDataInclude(loggedInUserId: string){
+export function getPostDataInclude(loggedInUserId: string) {
   return {
-    user : {
-        select : getUserDataSelect(loggedInUserId),
+    user: {
+      select: getUserDataSelect(loggedInUserId),
     },
-} satisfies Prisma.PostInclude;
+  } satisfies Prisma.PostInclude;
 }
 
 export type UserData = Prisma.UserGetPayload<{
@@ -39,7 +42,7 @@ export type PostData = Prisma.PostGetPayload<{
 }>;
 
 export interface PostsPage {
-  posts: PostData[],
+  posts: PostData[];
   nextCursor: string | null;
 }
 

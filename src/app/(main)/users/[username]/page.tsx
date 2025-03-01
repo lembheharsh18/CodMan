@@ -13,6 +13,8 @@ import UserPosts from "./UserPosts";
 import { Button } from "@/components/ui/button";
 
 import { formatDate, parseISO } from "date-fns"; 
+import Linkify from "@/components/Linkify";
+import EditProfileButton from "./EditProfileButton";
 
 interface PageProps {
   params: { username: string };
@@ -91,7 +93,6 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
     ),
   };
 
-  // Ensure the date is valid
   const createdAtDate = user.createdAt ? new Date(user.createdAt) : null;
 
   return (
@@ -126,15 +127,22 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
           </div>
         </div>
         {user.id === loggedInUserId ? (
-          <Button>Edit profile</Button>
+          <EditProfileButton user={user}/>
         ) : (
           <FollowButton userId={user.id} initialState={followerInfo} />
         )}
       </div>
-      {user.bio && (
+      {user.bio ? (
         <>
           <hr />
+          <Linkify>
+            <div className="overflow-hidden whitespace-pre-line break-words">
+              {user.bio}
+            </div>
+          </Linkify>
         </>
+      ) : (
+        <span className="text-muted-foreground">No bio available</span>
       )}
     </div>
   );
