@@ -30,8 +30,10 @@ export function getPostDataInclude(loggedInUserId: string) {
     user: {
       select: getUserDataSelect(loggedInUserId),
     },
+    attachments: true, // ✅ Ensures attachments are included in the query
   } satisfies Prisma.PostInclude;
 }
+
 
 export type UserData = Prisma.UserGetPayload<{
   select: ReturnType<typeof getUserDataSelect>;
