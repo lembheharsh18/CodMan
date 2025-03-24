@@ -3,7 +3,6 @@ import { useSession } from "@/app/(main)/SessionProvider";
 import { PostData } from "@/lib/types";
 import { cn, formatRelativeDate } from "@/lib/utils";
 import { Media } from "@prisma/client";
-import { MessageSquare } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -11,9 +10,11 @@ import { useState } from "react";
 import Linkify from "../Linkify";
 import UserAvatar from "../UserAvatar";
 import UserTooltip from "../UserTooltip";
-// import BookmarkButton from "./BookmarkButton";
-// import LikeButton from "./LikeButton";
 import PostMoreButton from "./PostMoreButton";
+import LikeButton from "./LikeButton";
+import BookmarkButton from "./BookmarkButton";
+import { MessageSquare } from "lucide-react";
+import Comments from "../comments/Comments";
 
 interface PostProps {
   post: PostData;
@@ -64,7 +65,32 @@ export default function Post({ post }: PostProps) {
       {!!post.attachments.length && (
         <MediaPreviews attachments={post.attachments} />
       )}
-      
+      <hr className="text-muted-foreground"/>
+      <div className="flex justify-between gap-5">
+        <div className="flex items-center gap-5">
+          
+      <LikeButton
+      postId={post.id}
+      initialState={{
+        likes: post._count.likes,
+        isLikedByUser: post.likes.some((like) => like.userId == user.id),
+      }}
+      />
+      <CommentButton
+      post={post}
+      onClick={() => setShowComments(!showComments)}
+      />
+      </div>
+      <BookmarkButton
+      postId={post.id}
+      initialState={{
+        isBookmarkedByUser: post.bookmarks.some(
+          (bookmark) => bookmark.userId === user.id,
+        )
+      }}
+      />
+      </div>
+      {showComments && <Comments post={post}/>}
     </article>
   );
 }
@@ -118,4 +144,21 @@ function MediaPreview({ media }: MediaPreviewProps) {
   }
 
   return <p className="text-destructive">Unsupported media type</p>;
+}
+
+interface CommentButtonProps {
+  post: PostData;
+  onClick: () => void;
+}
+
+function CommentButton({ post, onClick }: CommentButtonProps) {
+  return (
+    <button onClick={onClick} className="flex items-center gap-2">
+      <MessageSquare className="size-5" />
+      <span className="text-sm font-medium tabular-nums">
+        {post._count.comments}{" "}
+        <span className="hidden sm:inline">comments</span>
+      </span>
+    </button>
+  );
 }
