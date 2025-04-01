@@ -6,6 +6,10 @@ const nextConfig = {
   },
   serverExternalPackages: ["@node-rs/argon2"],
   images: {
+    domains: [
+      'lh3.googleusercontent.com',
+    ],
+
     remotePatterns: [
       {
         protocol: "https",

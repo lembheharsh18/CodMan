@@ -9,58 +9,99 @@ body {
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
+    --background: 210 40% 98%; /* slate-50 */
+    --foreground: 222 47% 11%; /* slate-900 */
+    
+    --card: 0 0% 100%; /* white */
+    --card-foreground: 222 47% 11%; /* slate-900 */
+    
+    --popover: 0 0% 100%; /* white */
+    --popover-foreground: 222 47% 11%; /* slate-900 */
+    
+    --primary: 217 91% 60%; /* blue-500 */
+    --primary-foreground: 210 40% 98%; /* slate-50 */
+    --primary-light: 213 94% 68%; /* blue-400 */
+    --primary-dark: 215 82% 53%; /* blue-600 */
+    
+    --secondary: 210 40% 96%; /* slate-100 */
+    --secondary-foreground: 222 47% 11%; /* slate-900 */
+    
+    --muted: 210 40% 96%; /* slate-100 */
+    --muted-foreground: 215 16% 47%; /* slate-500 */
+    
+    --accent: 210 40% 96%; /* slate-100 */
+    --accent-foreground: 222 47% 11%; /* slate-900 */
+    
+    --destructive: 0 84% 60%; /* red-500 */
+    --destructive-foreground: 210 40% 98%; /* slate-50 */
+  
+    --border: 214 32% 91%; /* slate-200 */
+    --input: 214 32% 91%; /* slate-200 */
+    --ring: 217 91% 60%; /* blue-500 */
+    
     --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
   }
-
+  
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --background: 222 47% 11%; /* slate-900 */
+    --foreground: 210 40% 98%; /* slate-50 */
+    
+    --card: 217 33% 17%; /* slate-800 */
+    --card-foreground: 210 40% 98%; /* slate-50 */
+    
+    --popover: 222 47% 11%; /* slate-900 */
+    --popover-foreground: 210 40% 98%; /* slate-50 */
+    
+    --primary: 213 94% 68%; /* blue-400 */
+    --primary-foreground: 222 47% 11%; /* slate-900 */
+    --primary-light: 217 91% 60%; /* blue-500 */
+    --primary-dark: 217 92% 76%; /* blue-300 */
+    
+    --secondary: 215 28% 17%; /* slate-800 */
+    --secondary-foreground: 210 40% 98%; /* slate-50 */
+    
+    --muted: 215 28% 17%; /* slate-800 */
+    --muted-foreground: 215 20% 65%; /* slate-400 */
+    
+    --accent: 215 28% 17%; /* slate-800 */
+    --accent-foreground: 210 40% 98%; /* slate-50 */
+    
+    --destructive: 0 72% 51%; /* red-600 */
+    --destructive-foreground: 210 40% 98%; /* slate-50 */
+  
+    --border: 215 28% 17%; /* slate-800 */
+    --input: 215 28% 17%; /* slate-800 */
+    --ring: 213 94% 68%; /* blue-400 */
+  }
+  
+  /* Smooth transitions */
+  * {
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 30%);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 50%);
+  }
+  .bg-blush-light {
+    background-color: hsl(210, 40%, 97%);
+  }
+  
+  .dark .bg-blush-light {
+    background-color: hsl(217, 33%, 17%); /* Your existing dark card color */
   }
 }
 

@@ -6,7 +6,7 @@ import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
 import kyInstance from "@/lib/ky";
 import { PostsPage } from "@/lib/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { Loader2, UserPlus } from "lucide-react";
+import { Loader2, RefreshCcw, UserPlus } from "lucide-react";
 import Link from "next/link";
 
 export default function FollowingFeed() {
@@ -39,23 +39,24 @@ export default function FollowingFeed() {
 
   if (status === "success" && !posts.length && !hasNextPage) {
     return (
-      <div className="flex flex-col items-center justify-center p-8 text-center rounded-lg border border-dashed space-y-4 transition-all duration-200 hover:border-blue-300 hover:bg-blue-50/50">
-        <div className="w-16 h-16 rounded-full bg-blue-100/50 flex items-center justify-center">
-          <UserPlus className="w-8 h-8 text-blue-500" />
+      <div className="flex flex-col items-center justify-center p-8 text-center rounded-lg border border-dashed border-primary/30 space-y-4 transition-all duration-200 hover:border-primary/50 hover:bg-primary/5">
+        <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+          <RefreshCcw className="w-8 h-8 text-primary" />
         </div>
-        <p className="text-lg font-medium">Your following feed is empty</p>
-        <p className="text-muted-foreground max-w-md">
-          When you follow people, their posts will appear here. Find some interesting profiles to follow!
+        <p className="text-lg font-medium">No posts yet</p>
+        <p className="text-text-secondary max-w-md">
+          Be the first one to share a post or check back later when others have posted content.
         </p>
-        <Link 
-          href="/explore/users"
-          className="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition-colors duration-200"
+        <button 
+          onClick={() => refetch()}
+          className="px-4 py-2 rounded-md bg-primary text-white hover:bg-primary/90 transition-colors duration-200"
         >
-          Discover people
-        </Link>
+          Refresh feed
+        </button>
       </div>
     );
   }
+
 
   if (status === "error") {
     return (
